@@ -2,7 +2,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2016 Remi Collet
+# Copyright (c) 2015-2017 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -24,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.1.10
+Version:        1.2.8
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -33,11 +33,13 @@ Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
 BuildRequires:  %{?scl_prefix}php-devel > 5.4
 BuildRequires:  %{?scl_prefix}php-pear
+BuildRequires:  %{?scl_prefix}php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
 
 Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
+Requires:       %{?scl_prefix}php-json%{?_isa}
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -74,7 +76,7 @@ sed -e 's/role="test"/role="src"/' \
 cd NTS
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define MONGODB_VERSION_S/{s/.* "//;s/".*$//;p}' php_phongo.h)
+extver=$(sed -n '/#define PHP_MONGODB_VERSION/{s/.* "//;s/".*$//;p}' php_phongo.h)
 if test "x${extver}" != "x%{version}%{?prever:%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:%{prever}}.
    exit 1
@@ -141,8 +143,11 @@ fi
 
 
 %check
+OPT="-n"
+[ -f %{php_extdir}/json.so ] && OPT="$OPT -d extension=json.so"
+
 : Minimal load test for NTS extension
-%{__php} --no-php-ini \
+%{__php} $OPT \
     --define extension=%{buildroot}%{php_extdir}/%{pecl_name}.so \
     --modules | grep %{pecl_name}
 
@@ -160,6 +165,10 @@ fi
 
 
 %changelog
+* Mon Apr 10 2017 Remi Collet <remi@fedoraproject.org> - 1.2.8-1
+- update to 1.2.8
+- add dependency on json extension
+
 * Thu Dec  8 2016 Remi Collet <remi@fedoraproject.org> - 1.1.10-1
 - update to 1.1.10
 
