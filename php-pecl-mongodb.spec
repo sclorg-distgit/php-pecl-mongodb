@@ -24,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.2.8
+Version:        1.2.9
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -165,6 +165,9 @@ OPT="-n"
 
 
 %changelog
+* Tue May 9 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
+- update to 1.2.9
+
 * Mon Apr 10 2017 Remi Collet <remi@fedoraproject.org> - 1.2.8-1
 - update to 1.2.8
 - add dependency on json extension
