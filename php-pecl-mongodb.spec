@@ -16,6 +16,9 @@
 %if "%{scl}" == "rh-php70"
 %global sub_prefix sclo-php70-
 %endif
+%if "%{scl}" == "rh-php71"
+%global sub_prefix sclo-php71-
+%endif
 %scl_package       php-pecl-mongodb
 %endif
 
@@ -25,7 +28,7 @@
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
 Version:        1.2.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -165,6 +168,9 @@ OPT="-n"
 
 
 %changelog
+* Thu Aug 10 2017 Remi Collet <remi@remirepo.net> - 1.2.9-2
+- change for sclo-php71
+
 * Tue May 9 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
 - update to 1.2.9
 
