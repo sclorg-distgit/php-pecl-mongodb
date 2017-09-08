@@ -27,8 +27,8 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.2.9
-Release:        2%{?dist}
+Version:        1.2.10
+Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
@@ -168,10 +168,13 @@ OPT="-n"
 
 
 %changelog
+* Fri Sep  8 2017 Remi Collet <remi@remirepo.net> - 1.2.10-1
+- update to 1.2.10
+
 * Thu Aug 10 2017 Remi Collet <remi@remirepo.net> - 1.2.9-2
 - change for sclo-php71
 
-* Tue May 9 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
+* Tue May  9 2017 Remi Collet <remi@remirepo.net> - 1.2.9-1
 - update to 1.2.9
 
 * Mon Apr 10 2017 Remi Collet <remi@fedoraproject.org> - 1.2.8-1
