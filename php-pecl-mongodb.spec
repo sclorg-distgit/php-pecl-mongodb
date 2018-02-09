@@ -2,7 +2,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2017 Remi Collet
+# Copyright (c) 2015-2018 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -27,7 +27,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.3.4
+Version:        1.4.0
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -39,13 +39,15 @@ BuildRequires:  %{?scl_prefix}php-pear
 BuildRequires:  %{?scl_prefix}php-json
 BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
+BuildRequires:  snappy-devel
+BuildRequires:  zlib-devel
 
 Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.8.2
-Provides:       bundled(mongo-c-driver) = 1.8.2
+Provides:       bundled(libbson) = 1.9.2
+Provides:       bundled(mongo-c-driver) = 1.9.2
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -105,6 +107,8 @@ peclbuild() {
 
   %configure \
     --with-php-config=%{_bindir}/${1}-config \
+    --enable-mongodb-crypto-system-profile \
+    --with-mongodb-sasl \
     --enable-mongodb
 
   make %{?_smp_mflags}
@@ -171,6 +175,11 @@ OPT="-n"
 
 
 %changelog
+* Fri Feb  9 2018 Remi Collet <remi@remirepo.net> - 1.4.0-1
+- update to 1.4.0 with libbson and libmongoc 1.9.2
+- enable snappy and zlib compression
+- build with --enable-mongodb-crypto-system-profile option
+
 * Mon Dec  4 2017 Remi Collet <remi@remirepo.net> - 1.3.4-1
 - update to 1.3.4
 
