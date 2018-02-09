@@ -27,7 +27,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.3.3
+Version:        1.3.4
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -171,6 +171,9 @@ OPT="-n"
 
 
 %changelog
+* Mon Dec  4 2017 Remi Collet <remi@remirepo.net> - 1.3.4-1
+- update to 1.3.4
+
 * Wed Nov 22 2017 Remi Collet <remi@remirepo.net> - 1.3.3-1
 - update to 1.3.3 with libbson and libmongoc 1.8.2
 
