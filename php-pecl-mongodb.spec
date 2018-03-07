@@ -27,7 +27,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.4.0
+Version:        1.4.2
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -46,8 +46,8 @@ Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.9.2
-Provides:       bundled(mongo-c-driver) = 1.9.2
+Provides:       bundled(libbson) = 1.9.3
+Provides:       bundled(mongo-c-driver) = 1.9.3
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -175,6 +175,10 @@ OPT="-n"
 
 
 %changelog
+* Wed Mar  7 2018 Remi Collet <remi@remirepo.net> - 1.4.2-1
+- Update to 1.4.2 (no change)
+- with libbson and libmongoc 1.9.3
+
 * Fri Feb  9 2018 Remi Collet <remi@remirepo.net> - 1.4.0-1
 - update to 1.4.0 with libbson and libmongoc 1.9.2
 - enable snappy and zlib compression
