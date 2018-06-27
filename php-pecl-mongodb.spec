@@ -24,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.4.4
+Version:        1.5.0
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -38,13 +38,17 @@ BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
 BuildRequires:  snappy-devel
 BuildRequires:  zlib-devel
+%if 0%{?rhel} >= 7
+BuildRequires:  libicu-devel
+%endif
+
 
 Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.9.3
-Provides:       bundled(mongo-c-driver) = 1.9.3
+Provides:       bundled(libbson) = 1.11.0
+Provides:       bundled(mongo-c-driver) = 1.11.0
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -81,7 +85,7 @@ sed -e 's/role="test"/role="src"/' \
 cd NTS
 
 # Sanity check, really often broken
-extver=$(sed -n '/#define PHP_MONGODB_VERSION/{s/.* "//;s/".*$//;p}' php_phongo.h)
+extver=$(sed -n '/#define PHP_MONGODB_VERSION /{s/.* "//;s/".*$//;p}' phongo_version.h)
 if test "x${extver}" != "x%{version}%{?prever:%{prever}}"; then
    : Error: Upstream extension version is ${extver}, expecting %{version}%{?prever:%{prever}}.
    exit 1
@@ -105,7 +109,11 @@ peclbuild() {
   %configure \
     --with-php-config=%{_bindir}/${1}-config \
     --enable-mongodb-crypto-system-profile \
-    --with-mongodb-sasl \
+    --with-mongodb-sasl=cyrus \
+%if 0%{?rhel} >= 7
+    --with-mongodb-icu=yes \
+%endif
+    --with-mongodb-ssl=openssl \
     --enable-mongodb
 
   make %{?_smp_mflags}
@@ -172,6 +180,11 @@ OPT="-n"
 
 
 %changelog
+* Tue Jun 26 2018 Remi Collet <remi@remirepo.net> - 1.5.0-1
+- update to 1.5.0
+- with libbson and libmongoc 1.11.0
+- add dependency on icu
+
 * Thu Jun  7 2018 Remi Collet <remi@remirepo.net> - 1.4.4-1
 - Update to 1.4.4
 
