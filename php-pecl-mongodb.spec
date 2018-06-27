@@ -9,10 +9,7 @@
 # Please, preserve the changelog entries
 #
 %if 0%{?scl:1}
-%global sub_prefix sclo-%{scl_prefix}
-%if "%{scl}" == "rh-php56"
-%global sub_prefix sclo-php56-
-%endif
+%global sub_prefix %{scl_prefix}
 %if "%{scl}" == "rh-php70"
 %global sub_prefix sclo-php70-
 %endif
@@ -27,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.4.3
+Version:        1.4.4
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -175,9 +172,11 @@ OPT="-n"
 
 
 %changelog
+* Thu Jun  7 2018 Remi Collet <remi@remirepo.net> - 1.4.4-1
+- Update to 1.4.4
+
 * Thu Apr 19 2018 Remi Collet <remi@remirepo.net> - 1.4.3-1
 - Update to 1.4.3
-- with libbson and libmongoc 1.9.4
 
 * Wed Mar  7 2018 Remi Collet <remi@remirepo.net> - 1.4.2-1
 - Update to 1.4.2 (no change)
