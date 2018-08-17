@@ -16,6 +16,9 @@
 %if "%{scl}" == "rh-php71"
 %global sub_prefix sclo-php71-
 %endif
+%if "%{scl}" == "rh-php72"
+%global sub_prefix sclo-php72-
+%endif
 %scl_package       php-pecl-mongodb
 %endif
 
@@ -24,7 +27,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.5.1
+Version:        1.5.2
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -47,8 +50,8 @@ Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.11.0
-Provides:       bundled(mongo-c-driver) = 1.11.0
+Provides:       bundled(libbson) = 1.12.0
+Provides:       bundled(mongo-c-driver) = 1.12.0
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -180,6 +183,10 @@ OPT="-n"
 
 
 %changelog
+* Fri Aug 17 2018 Remi Collet <remi@remirepo.net> - 1.5.2-1
+- update to 1.5.2
+- with libbson and libmongoc 1.12.0
+
 * Mon Jul  9 2018 Remi Collet <remi@remirepo.net> - 1.5.1-1
 - update to 1.5.1
 
