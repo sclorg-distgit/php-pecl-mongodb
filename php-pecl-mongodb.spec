@@ -2,7 +2,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2018 Remi Collet
+# Copyright (c) 2015-2019 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -19,6 +19,9 @@
 %if "%{scl}" == "rh-php72"
 %global sub_prefix sclo-php72-
 %endif
+%if "%{scl}" == "rh-php73"
+%global sub_prefix sclo-php73-
+%endif
 %scl_package       php-pecl-mongodb
 %endif
 
@@ -27,7 +30,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.5.3
+Version:        1.5.4
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -183,6 +186,9 @@ OPT="-n"
 
 
 %changelog
+* Tue Jun  4 2019 Remi Collet <remi@remirepo.net> - 1.5.4-1
+- update to 1.5.4
+
 * Fri Sep 21 2018 Remi Collet <remi@remirepo.net> - 1.5.3-1
 - update to 1.5.3
 - with libbson and libmongoc 1.13.0
