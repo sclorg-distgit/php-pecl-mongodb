@@ -30,14 +30,14 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.5.5
+Version:        1.6.0
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
 URL:            http://pecl.php.net/package/%{pecl_name}
 Source0:        http://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
-BuildRequires:  %{?scl_prefix}php-devel > 5.5
+BuildRequires:  %{?scl_prefix}php-devel > 5.6
 BuildRequires:  %{?scl_prefix}php-pear
 BuildRequires:  %{?scl_prefix}php-json
 BuildRequires:  cyrus-sasl-devel
@@ -53,8 +53,8 @@ Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.13.0
-Provides:       bundled(mongo-c-driver) = 1.13.0
+Provides:       bundled(libbson) = 1.15.1
+Provides:       bundled(mongo-c-driver) = 1.15.1
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -186,6 +186,10 @@ OPT="-n"
 
 
 %changelog
+* Tue Sep 10 2019 Remi Collet <remi@remirepo.net> - 1.6.0-1
+- update to 1.6.0
+- with libbson and libmongoc 1.15.1
+
 * Tue Jun 11 2019 Remi Collet <remi@remirepo.net> - 1.5.5-1
 - update to 1.5.5
 
