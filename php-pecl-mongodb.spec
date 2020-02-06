@@ -10,12 +10,6 @@
 #
 %if 0%{?scl:1}
 %global sub_prefix %{scl_prefix}
-%if "%{scl}" == "rh-php70"
-%global sub_prefix sclo-php70-
-%endif
-%if "%{scl}" == "rh-php71"
-%global sub_prefix sclo-php71-
-%endif
 %if "%{scl}" == "rh-php72"
 %global sub_prefix sclo-php72-
 %endif
@@ -30,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -53,8 +47,8 @@ Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.15.1
-Provides:       bundled(mongo-c-driver) = 1.15.1
+Provides:       bundled(libbson) = 1.15.2
+Provides:       bundled(mongo-c-driver) = 1.15.2
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -109,6 +103,8 @@ EOF
 
 
 %build
+%{?dtsenable}
+
 peclbuild() {
   %{_bindir}/${1}ize
 
@@ -130,6 +126,8 @@ peclbuild php
 
 
 %install
+%{?dtsenable}
+
 make -C NTS \
      install INSTALL_ROOT=%{buildroot}
 
@@ -186,6 +184,10 @@ OPT="-n"
 
 
 %changelog
+* Fri Dec  6 2019 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+- with libbson and libmongoc 1.15.2
+
 * Tue Sep 10 2019 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update to 1.6.0
 - with libbson and libmongoc 1.15.1
