@@ -2,7 +2,7 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2019 Remi Collet
+# Copyright (c) 2015-2020 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -24,7 +24,7 @@
 
 Summary:        MongoDB driver for PHP
 Name:           %{?sub_prefix}php-pecl-%{pecl_name}
-Version:        1.6.1
+Version:        1.7.1
 Release:        1%{?dist}
 License:        ASL 2.0
 Group:          Development/Languages
@@ -38,17 +38,16 @@ BuildRequires:  cyrus-sasl-devel
 BuildRequires:  openssl-devel
 BuildRequires:  snappy-devel
 BuildRequires:  zlib-devel
-%if 0%{?rhel} >= 7
 BuildRequires:  libicu-devel
-%endif
 
 
 Requires:       %{?scl_prefix}php(zend-abi) = %{php_zend_api}
 Requires:       %{?scl_prefix}php(api) = %{php_core_api}
 Requires:       %{?scl_prefix}php-json%{?_isa}
 
-Provides:       bundled(libbson) = 1.15.2
-Provides:       bundled(mongo-c-driver) = 1.15.2
+Provides:       bundled(libbson)        = 1.16.1
+Provides:       bundled(mongo-c-driver) = 1.16.1
+Provides:       bundled(libmongocrypt)  = 1.0.1
 
 # Don't provide php-mongodb which is the pure PHP library
 Provides:       %{?scl_prefix}php-pecl(%{pecl_name})         = %{version}
@@ -56,12 +55,6 @@ Provides:       %{?scl_prefix}php-pecl(%{pecl_name})%{?_isa} = %{version}
 %if "%{?scl_prefix}" != "%{?sub_prefix}"
 Provides:       %{?scl_prefix}php-pecl-%{pecl_name}          = %{version}-%{release}
 Provides:       %{?scl_prefix}php-pecl-%{pecl_name}%{?_isa}  = %{version}-%{release}
-%endif
-
-%if 0%{?fedora} < 20 && 0%{?rhel} < 7
-# Filter shared private
-%{?filter_provides_in: %filter_provides_in %{_libdir}/.*\.so$}
-%{?filter_setup}
 %endif
 
 
@@ -112,10 +105,9 @@ peclbuild() {
     --with-php-config=%{_bindir}/${1}-config \
     --enable-mongodb-crypto-system-profile \
     --with-mongodb-sasl=cyrus \
-%if 0%{?rhel} >= 7
     --with-mongodb-icu=yes \
-%endif
     --with-mongodb-ssl=openssl \
+    --with-mongodb-client-side-encryption \
     --enable-mongodb
 
   make %{?_smp_mflags}
@@ -184,6 +176,11 @@ OPT="-n"
 
 
 %changelog
+* Thu Feb  6 2020 Remi Collet <remi@remirepo.net> - 1.7.1-1
+- update to 1.7.1
+- with libbson and libmongoc 1.16.1
+- with libmongocrypt 1.0.1
+
 * Fri Dec  6 2019 Remi Collet <remi@remirepo.net> - 1.6.1-1
 - update to 1.6.1
 - with libbson and libmongoc 1.15.2
